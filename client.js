@@ -52,11 +52,19 @@ const main = async () => {
 
       const chat=new ChatManager({
         instanceLocator:'v1:us1:926b8660-260d-473c-b178-f1db68d1ca84',
-        userId:'username',
+        userId:username,
         tokenProvider:new TokenProvider({url: 'http://localhost:3000/authenticate'})
       });
 
-      const currentUser=await chatManager.connect();
+      const currentUser=await chat.connect();
+
+      const joinableRooms = await currentUser.getJoinableRooms();
+      const availableRooms = [...currentUser.rooms, ...joinableRooms];
+
+      console.log('Available rooms:');
+      availableRooms.forEach((room, index) => {
+      console.log(`${index} - ${room.name}`);
+      });
 
     } catch (err) {
       console.log(`Failed with ${err}`);
