@@ -49,6 +49,15 @@ const main = async () => {
       const {username}=await get(userSchema);
       await createUser(username);
 
+
+      const chat=new ChatManager({
+        instanceLocator:'v1:us1:926b8660-260d-473c-b178-f1db68d1ca84',
+        userId:'username',
+        tokenProvider:new TokenProvider({url: 'http://localhost:3000/authenticate'})
+      });
+
+      const currentUser=await chatManager.connect();
+
     } catch (err) {
       console.log(`Failed with ${err}`);
       process.exit(1);
