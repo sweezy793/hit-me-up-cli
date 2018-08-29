@@ -47,6 +47,7 @@ const main = async () => {
       ];
 
       const {username}=await get(userSchema);
+      await createUser(username);
 
     } catch (err) {
       console.log(`Failed with ${err}`);
