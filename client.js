@@ -5,6 +5,8 @@ const prompt=require('prompt');
 const chalk       = require('chalk');
 const clear       = require('clear');
 const figlet      = require('figlet');
+const chalkAnimation = require('chalk-animation');
+const rainbow = chalkAnimation.rainbow(figlet.textSync('Hit Me Up!', { horizontalLayout: 'full' }));
 
 
 const makeChatkitNodeCompatible = () => {  //chatkit-client works properly in browser but not node. makeChatkitNodeCompatible makes it work the same as it does in browser
@@ -15,12 +17,10 @@ const makeChatkitNodeCompatible = () => {  //chatkit-client works properly in br
 
 makeChatkitNodeCompatible();
 
-clear();
-console.log(
-  chalk.whiteBright.bgRed.bold(
-    figlet.textSync('Hit Me Up!', { horizontalLayout: 'full' })
-  )
-);
+
+
+
+
 
 const main = async () => {
     try {
@@ -43,4 +43,9 @@ const main = async () => {
       process.exit(1);
     }
   }
-  main();
+  setTimeout(() => {
+    // Stop the 'Lorem ipsum' animation, then write on a new line.
+    main();
+    rainbow.stop();
+}, 2000);
+ 
