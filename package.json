@@ -19,6 +19,7 @@
   "dependencies": {
     "@pusher/chatkit": "^0.7.17",
     "@pusher/chatkit-server": "^0.12.2",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "chalk-animation": "^1.6.0",

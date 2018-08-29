@@ -2,6 +2,7 @@ const {ChatManager, TokenProvider} = require('@pusher/chatkit');
 const {JSDOM} = require('jsdom');
 const util = require('util');
 const prompt=require('prompt');
+const axios=require('axios');
 const chalk       = require('chalk');
 const clear       = require('clear');
 const figlet      = require('figlet');
@@ -18,7 +19,15 @@ const makeChatkitNodeCompatible = () => {  //chatkit-client works properly in br
 
 makeChatkitNodeCompatible();
 
-
+const createUser=async username=>{
+  try{
+    await axios.post('http://localhost:3000/users',{username});
+  }
+  catch({message})
+  {
+    throw new Error(`Couldn't create user, ${message}`);
+  }
+};
 
 
 
