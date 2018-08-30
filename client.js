@@ -8,6 +8,7 @@ const clear       = require('clear');
 const figlet      = require('figlet');
 const chalkAnimation = require('chalk-animation');
 var colors = require("colors/safe");
+const readline = require('readline');
 const rainbow = chalkAnimation.karaoke(figlet.textSync('Hit Me Up!', { horizontalLayout: 'full' }));
 
 
@@ -85,6 +86,7 @@ const main = async () => {
       const {room:selectedRoom}=await get(chatRoomSchema);
       const room=availableRooms[selectedRoom];
       
+      //subscribing to a room and recieving message
       await currentUser.subscribeToRoom({
         roomId:room.id,
         hooks:{
@@ -98,6 +100,14 @@ const main = async () => {
         messageLimit:0
       })
       console.log(`Joined ${room.name}`);
+
+
+      //sending message
+      const input=readline.createInterface({input:process.stdin});
+
+      input.on('line',async text=>{
+        await currentUser.sendMessage({roomId:room.id,text});
+      })
 
 
 
