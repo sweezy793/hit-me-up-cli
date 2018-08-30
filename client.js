@@ -5,7 +5,6 @@ const prompt=require('prompt');
 const axios=require('axios');
 const ora = require('ora');
 const chalk=require('chalk');
-const cliSpinners = require('cli-spinners');
 const clear=require('clear');
 const figlet=require('figlet');
 const chalkAnimation = require('chalk-animation');
@@ -81,7 +80,7 @@ const main = async () => {
 
 
       const chatRoomSchema=[{
-        description:'Select a room',
+        description:colors.cyan('Select a room'),
         name:'room',
         conform:v=>{
           if(v>=availableRooms.length)
@@ -111,7 +110,7 @@ const main = async () => {
         },
         messageLimit:0
       })
-      spinner.succeed(`Joined ${room.name}`);
+      spinner.succeed(`Joined ${room.name} chat`);
 
 
       //sending message
