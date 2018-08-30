@@ -3,9 +3,11 @@ const {JSDOM} = require('jsdom');
 const util = require('util');
 const prompt=require('prompt');
 const axios=require('axios');
-const chalk       = require('chalk');
-const clear       = require('clear');
-const figlet      = require('figlet');
+const ora = require('ora');
+const chalk=require('chalk');
+const cliSpinners = require('cli-spinners');
+const clear=require('clear');
+const figlet=require('figlet');
 const chalkAnimation = require('chalk-animation');
 var colors = require("colors/safe");
 const readline = require('readline');
@@ -34,6 +36,7 @@ const createUser=async username=>{
 
 
 const main = async () => {
+  const spinner = ora();
     try {
       prompt.start();
       prompt.message='';
@@ -48,7 +51,9 @@ const main = async () => {
       ];
 
       const {username}=await get(userSchema);
+      spinner.start('Authenticating..');
       await createUser(username);
+      spinner.succeed(`Authenticated as ${username}`);
 
 
       const chat=new ChatManager({
@@ -57,9 +62,15 @@ const main = async () => {
         tokenProvider:new TokenProvider({url: 'http://localhost:3000/authenticate'})
       });
 
+      spinner.start('Connecting to Pusher..');
       const currentUser=await chat.connect();
+      spinner.succeed('Connected');
 
+
+      spinner.start('Fetching rooms..');
       const joinableRooms = await currentUser.getJoinableRooms();
+      spinner.succeed('Fetched rooms');
+
       const availableRooms = [...currentUser.rooms, ...joinableRooms];
 
       console.log('Available rooms:');
@@ -87,6 +98,7 @@ const main = async () => {
       const room=availableRooms[selectedRoom];
       
       //subscribing to a room and recieving message
+      spinner.start(`Joining chat room ${selectedRoom}..`);
       await currentUser.subscribeToRoom({
         roomId:room.id,
         hooks:{
@@ -99,7 +111,7 @@ const main = async () => {
         },
         messageLimit:0
       })
-      console.log(`Joined ${room.name}`);
+      spinner.succeed(`Joined ${room.name}`);
 
 
       //sending message
@@ -113,6 +125,7 @@ const main = async () => {
 
 
     } catch (err) {
+      spinner.fail();
       console.log(`Failed with ${err}`);
       process.exit(1);
     }
