@@ -85,6 +85,19 @@ const main = async () => {
       const {room:selectedRoom}=await get(chatRoomSchema);
       const room=availableRooms[selectedRoom];
       
+      await currentUser.subscribeToRoom({
+        roomId:room.id,
+        hooks:{
+          onNewMessage:message=>{  //onNewMessage is a hook function is which called when a message is recieved
+            const {senderId,text}=message;
+            if(senderId==username)
+            return ;
+            console.log(`${senderId}:${text}`);
+          }
+        },
+        messageLimit:0
+      })
+      console.log(`Joined ${room.name}`);
 
 
 
