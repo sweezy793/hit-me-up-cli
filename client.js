@@ -66,6 +66,29 @@ const main = async () => {
       console.log(`${index} - ${room.name}`);
       });
 
+
+
+      const chatRoomSchema=[{
+        description:'Select a room',
+        name:'room',
+        conform:v=>{
+          if(v>=availableRooms.length)
+          {
+            return false;
+          }
+          return true;
+        },
+        message:'Select room in numbers',
+        required:true
+      }]
+
+      const {room:selectedRoom}=await get(chatRoomSchema);
+      const room=availableRooms[selectedRoom];
+      
+
+
+
+
     } catch (err) {
       console.log(`Failed with ${err}`);
       process.exit(1);
