@@ -21,3 +21,5 @@ ATM chats are not stored in any kind of database
 * [prompt](https://github.com/flatiron/prompt) A beautiful command-line prompt for node.js
 
 ## Screenshot
+
+![alt text](https://raw.githubusercontent.com/sweezy793/hit-me-up-cli/master/ss.png)
