@@ -9,8 +9,9 @@ const clear=require('clear');
 const figlet=require('figlet');
 const chalkAnimation = require('chalk-animation');
 var colors = require("colors/safe");
+const color=require('colors');
 const readline = require('readline');
-const rainbow = chalkAnimation.karaoke(figlet.textSync('Hit Me Up!', { horizontalLayout: 'full' }));
+const rainbow = chalkAnimation.rainbow(figlet.textSync('Hit Me Up!', { horizontalLayout: 'full' }));
 
 
 const makeChatkitNodeCompatible = () => {  //chatkit-client works properly in browser but not node. makeChatkitNodeCompatible makes it work the same as it does in browser
@@ -105,7 +106,7 @@ const main = async () => {
             const {senderId,text}=message;
             if(senderId==username)
             return ;
-            console.log(`${senderId}:${text}`);
+            console.log(`${senderId}:${text}`.yellow);
           }
         },
         messageLimit:0
@@ -133,5 +134,5 @@ const main = async () => {
     // Stop the 'Lorem ipsum' animation, then write on a new line.
     main();
     rainbow.stop();
-}, 3500);
+}, 2500);
  
