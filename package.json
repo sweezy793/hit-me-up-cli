@@ -2,7 +2,9 @@
   "name": "hit-me-up-cli",
   "version": "1.0.0",
   "description": "A realtime Node.js CLI communication app created with the help of Pusher Channels",
-  "main": "index.js",
+  "main": "client.js",
+  "preferGlobal": true,
+  "bin": "./client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

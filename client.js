@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const {ChatManager, TokenProvider} = require('@pusher/chatkit');
 const {JSDOM} = require('jsdom');
 const util = require('util');
